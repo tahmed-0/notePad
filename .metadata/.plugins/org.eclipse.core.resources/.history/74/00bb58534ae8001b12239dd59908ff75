@@ -1,0 +1,236 @@
+package notePad;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+
+public class GUI implements ActionListener {
+	
+	//In here I am creating my attributes
+	
+	JFrame window;
+	
+	//Text Area component
+	JTextArea textArea;
+	JScrollPane scrollPane;
+	//Top menu bar
+	JMenuBar menuBar;
+	JMenu menuFile, menuEdit, menuFormat, menuColor;
+	//File menu
+	JMenuItem iNew, iOpen, iSave, iSaveAs, iExit;
+	
+	//Format menu
+	JMenuItem iWrap, iFontArial, iFontCSMS, iFontTNR, iFontSize8, iFontSize12, iFontSize16, iFontSize20, iFontSize24, iFontSize28;
+	JMenu menuFont, menuFontSize;
+	
+	//initializing the class
+	
+	Function_File file = new Function_File(this);
+	Function_Format format = new Function_Format(this);
+	
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		new GUI();
+		
+
+	}
+	
+	//In here I am calling my methods to get displayed on the screen
+	
+	
+	public GUI() {
+		
+		createWindow();
+		createTextArea();
+		createMenuBar();
+		createFileMenu();
+		createFormatMenu();
+		window.setVisible(true);
+		
+	}
+	
+	//In here I am creating the window frame with its title, size and exit to close.
+	
+	public void createWindow() {
+		window = new JFrame("Notepad");
+		window.setSize(800,600);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	}
+	
+	//In here I am creating text area where you can type anything 
+	
+	public void createTextArea() {
+		
+		textArea = new JTextArea();
+		
+		//In here I am creating a scroll bar
+		
+		scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		//Takes out the border
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		
+		window.add(scrollPane);
+		
+	
+		
+	}
+	
+	//In here I am creating the menu bar
+	
+	public void createMenuBar() {
+		
+		menuBar = new JMenuBar();
+		window.setJMenuBar(menuBar);
+		
+		//In here I am adding different features my notePad going to have
+		
+		menuFile = new JMenu("File");
+		menuBar.add(menuFile);
+		
+		menuEdit = new JMenu("Edit");
+		menuBar.add(menuEdit);
+		
+		menuFormat = new JMenu("Format");
+		menuBar.add(menuFormat);
+		
+		menuColor = new JMenu("Color");
+		menuBar.add(menuColor);
+	}
+	
+	//Here I am adding Menus under the File
+	//SetAction command for switch case
+	
+	public void createFileMenu() {
+		
+		iNew = new  JMenuItem("New");
+		iNew.addActionListener(this);
+		iNew.setActionCommand("New");
+		menuFile.add(iNew);
+		
+		iOpen = new JMenuItem("Open");
+		iOpen.addActionListener(this);
+		iOpen.setActionCommand("Open");
+		menuFile.add(iOpen);
+		
+		iSave = new JMenuItem("Save");
+		iSave.addActionListener(this);
+		iSave.setActionCommand("Save");
+		menuFile.add(iSave);
+		
+		iSaveAs = new JMenuItem("Save as");
+		iSaveAs.addActionListener(this);
+		iSaveAs.setActionCommand("SaveAs");
+		menuFile.add(iSaveAs);
+		
+		iExit = new JMenuItem("Exit");
+		iExit.addActionListener(this);
+		iExit.setActionCommand("Exit");
+		menuFile.add(iExit);
+	}
+	
+	//Format Menu
+	
+	public void createFormatMenu() {
+		
+		iWrap = new JMenuItem("Word Wrap: Off");
+		iWrap.addActionListener(this);
+		iWrap.setActionCommand("Word Wrap");
+		menuFormat.add(iWrap);
+		
+		//initializing 
+		//Menu font
+		
+		menuFont = new JMenu("Font");
+		menuFormat.add(menuFont);
+		
+		//font names
+		//Arial font
+		
+		iFontArial = new JMenuItem("Arial");
+		iFontArial.addActionListener(this);
+		iFontArial.setActionCommand("Arial");
+		menuFont.add(iFontArial);
+		
+		// iFontCSMS
+		
+		iFontCSMS = new JMenuItem("Comic");
+		iFontCSMS.addActionListener(this);
+		iFontCSMS.setActionCommand("Comic");
+		menuFont.add(iFontCSMS);
+		
+		//iFontTNR
+		
+		iFontTNR = new JMenuItem("TNR");
+		iFontTNR.addActionListener(this);
+		iFontTNR.setActionCommand("TNR");
+		menuFont.add(iFontTNR);
+		
+		//Menu font size
+		
+		menuFontSize = new JMenu("Font Size");
+		menuFormat.add(menuFontSize);
+		
+		//Font size 
+		//iFontSize8
+		
+		iFontSize8 = new JMenuItem("Size 8");
+		iFontSize8.addActionListener(this);
+		iFontSize8.setActionCommand("Size 8");
+		//iFontSize8.add(menuFontSize);
+		
+		//, iFontSize12, iFontSize16, iFontSize20, iFontSize24, iFontSize28; menuFontSize;
+		
+		
+		
+	}
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		//Makes new file or does something whenever user clicks the menu
+		
+		String command = e.getActionCommand();
+		
+		switch(command) {
+		case "New": 
+			file.newFile(); 
+		break;
+		
+		case "Open":
+			file.open();
+			break;
+			
+		case "Save":
+			file.save();
+			break;
+			
+		case "SaveAs":
+			file.saveAs();
+			break;
+			
+		case "Exit":
+			file.exit();
+			break;
+			
+			
+			
+		}
+		
+		
+	}
+
+}

@@ -1,0 +1,26 @@
+//In this file I am going to add functions to the menu
+
+package notePad;
+
+public class Function_File {
+	
+	GUI gui;
+	
+	public Function_File(GUI gui) {
+		
+		this.gui = gui;
+		
+	}
+	
+	//This method going to start a new text file
+	
+	public void newFile() {
+		
+		//gets a blank text 
+		
+		gui.textArea.setText("");
+		gui.window.setTitle("New");
+		
+	}
+
+}
